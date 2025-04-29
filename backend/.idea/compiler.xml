@@ -9,11 +9,11 @@
         <module name="contract-service (1)" />
         <module name="auth-service" />
         <module name="payment-service" />
-        <module name="contract-service" />
         <module name="api-gateway" />
         <module name="user-service" />
         <module name="eureka-server" />
         <module name="project-service" />
+        <module name="notification-service" />
       </profile>
       <profile name="Annotation profile for common-utils" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -26,6 +26,9 @@
         <module name="common-utils" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="contract-service" target="11" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -36,6 +39,7 @@
       <module name="contract-service" options="-parameters" />
       <module name="contract-service (1)" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
+      <module name="notification-service" options="-parameters" />
       <module name="payment-service" options="-parameters" />
       <module name="project-service" options="-parameters" />
       <module name="user-service" options="-parameters" />

@@ -9,7 +9,6 @@
         <module name="contract-service (1)" />
         <module name="auth-service" />
         <module name="payment-service" />
-        <module name="contract-service" />
         <module name="api-gateway" />
         <module name="user-service" />
         <module name="eureka-server" />
@@ -27,6 +26,9 @@
         <module name="common-utils" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="contract-service" target="11" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

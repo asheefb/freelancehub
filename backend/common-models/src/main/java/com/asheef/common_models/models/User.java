@@ -12,6 +12,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -62,6 +63,10 @@ public class User {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+//    public <T> User(@NotBlank(message = "Email is required") @Email(message = "Please provide a valid email") String email, @NotBlank(message = "Password is required") @Size(min = 8, message = "Password must be at least 8 characters long") String password, List<T> ts) {
+//
+//    }
 
     public enum Role {
         FREELANCER,

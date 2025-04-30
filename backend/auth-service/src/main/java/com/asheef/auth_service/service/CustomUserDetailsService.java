@@ -1,7 +1,7 @@
 package com.asheef.auth_service.service;
 
-import com.asheef.auth_service.model.AppUser;
-import com.asheef.auth_service.repository.UsersRepository;
+import com.asheef.common_models.models.User;
+import com.asheef.common_models.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,17 +13,17 @@ import java.util.Collections;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UsersRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        AppUser user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 
-        return new User(
+        return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
-                Collections.singletonList(new SimpleGrantedAuthority(user.getRole() != null ? user.getRole() : "ROLE_USER"))
+                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole()))
         );
     }
 }

@@ -2,7 +2,6 @@ package com.asheef.user_service.controller;
 
 import com.asheef.common_utils.response.ResponseDto;
 import com.asheef.user_service.dto.UpdateUserDto;
-import com.asheef.user_service.dto.UserDto;
 import com.asheef.user_service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +16,15 @@ public class UserController {
     @Autowired
     private final UserService userService;
 
-
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<ResponseDto> addUser(@Valid @RequestBody UserDto userDto) {
-        return userService.addUser(userDto);
+    // Endpoint for user registration is handled by AuthController, so we won't repeat here
+
+    @PostMapping("/validate")
+    public ResponseEntity<ResponseDto> validateUser(@RequestParam String email, @RequestParam String password) {
+        return userService.validateUser(email, password);
     }
 
     @PutMapping("/update")
@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @GetMapping("/find-by-email")
-    public ResponseEntity<ResponseDto> findUserByEmail(String email) {
+    public ResponseEntity<ResponseDto> findUserByEmail(@RequestParam String email) {
         return userService.findUserByEmail(email);
     }
 
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @GetMapping("/get-user-by-id")
-    public ResponseEntity<ResponseDto> getUserDetailsById(String id) {
+    public ResponseEntity<ResponseDto> getUserDetailsById(@RequestParam String id) {
         return userService.getUserDetailsById(id);
     }
 }

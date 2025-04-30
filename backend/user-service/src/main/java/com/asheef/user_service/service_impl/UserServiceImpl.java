@@ -8,11 +8,11 @@ import com.asheef.user_service.dto.UpdateUserDto;
 import com.asheef.user_service.dto.UserDto;
 import com.asheef.user_service.exception.UserNotFoundException;
 import com.asheef.user_service.service.UserService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -62,6 +62,11 @@ public class UserServiceImpl implements UserService {
         HttpStatus httpStatus;
 
         try {
+            if (StringUtils.isBlank(email)) {
+                response = new ResponseDto(Boolean.FALSE, email, HttpStatus.BAD_REQUEST.value(), Constant.EMAIL_SHOULD_NOT_BE_EMPTY);
+                httpStatus = HttpStatus.BAD_REQUEST;
+                return new ResponseEntity<>(response, httpStatus);
+            }
             User user = userRepository.findByEmail(email)
                     .orElseThrow(() -> new UserNotFoundException(Constant.USER_NOT_FOUND_WITH_EMAIL+email));
 

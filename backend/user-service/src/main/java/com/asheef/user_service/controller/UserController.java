@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/user")
 public class UserController {
@@ -21,12 +23,12 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<ResponseDto> addUser(UserDto userDto) {
+    public ResponseEntity<ResponseDto> addUser(@Valid @RequestBody UserDto userDto) {
         return userService.addUser(userDto);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<ResponseDto> updateUser(UpdateUserDto updateUserDto) {
+    public ResponseEntity<ResponseDto> updateUser(@Valid @RequestBody UpdateUserDto updateUserDto) {
         return userService.updateUser(updateUserDto);
     }
 

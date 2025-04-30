@@ -4,6 +4,8 @@ import com.asheef.auth_service.config.JwtUtil;
 import com.asheef.auth_service.model.AuthRequest;
 import com.asheef.auth_service.model.AuthResponse;
 import com.asheef.auth_service.service.CustomUserDetailsService;
+import com.asheef.user_service.dto.UserDto;
+import com.asheef.user_service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.security.authentication.*;
@@ -23,6 +25,10 @@ public class AuthController {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
+    @Autowired
+    private UserService userService;
+
+    // Login endpoint
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest request) {
         try {
@@ -36,5 +42,38 @@ public class AuthController {
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
         String token = jwtUtil.generateToken(userDetails.getUsername());
         return ResponseEntity.ok(new AuthResponse(token));
+    }
+
+    // Registration endpoint
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody UserDto userDto) {
+        try {
+            return userService.addUser(userDto);  // Handle registration logic through UserService
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred during registration");
+        }
+    }
+
+    // Token refresh endpoint
+    @PostMapping("/refresh-token")
+    public ResponseEntity<AuthResponse> refreshToken(@RequestParam String refreshToken) {
+        try {
+            String email = jwtUtil.extractUsername(refreshToken);
+            if (email != null && jwtUtil.validateToken(refreshToken, email)) {
+                String newToken = jwtUtil.generateToken(email);
+                return ResponseEntity.ok(new AuthResponse(newToken));
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthResponse("Invalid or expired refresh token"));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new AuthResponse("Error refreshing token"));
+        }
+    }
+
+    // Logout endpoint (token invalidation placeholder)
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout() {
+        // Token invalidation logic or blacklist handling can be added here
+        return ResponseEntity.ok("Successfully logged out");
     }
 }

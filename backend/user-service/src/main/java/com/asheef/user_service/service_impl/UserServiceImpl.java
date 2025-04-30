@@ -12,15 +12,20 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public ResponseEntity<ResponseDto> addUser(UserDto userDto) {
@@ -52,6 +57,19 @@ public class UserServiceImpl implements UserService {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(response, httpStatus);
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> validateUser(String email, String password) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                return ResponseEntity.ok(new ResponseDto(Boolean.TRUE,user,HttpStatus.OK.value(),"User validated"));
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(new ResponseDto(Boolean.FALSE, HttpStatus.UNAUTHORIZED.value(),null, "Invalid email or password"));
     }
 
 

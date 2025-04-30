@@ -9,6 +9,8 @@ public interface UserService {
 
     public ResponseEntity<ResponseDto> addUser(UserDto userDto);
 
+    ResponseEntity<ResponseDto> validateUser(String email, String password);
+
     public ResponseEntity<ResponseDto> findUserByEmail(String email);
 
     public ResponseEntity<ResponseDto> updateUser(UpdateUserDto updateUserDto);
@@ -16,6 +18,4 @@ public interface UserService {
     public ResponseEntity<ResponseDto> getAllUsers();
 
     public ResponseEntity<ResponseDto> getUserDetailsById(String id);
-
-
 }

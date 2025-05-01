@@ -1,6 +1,7 @@
 package com.asheef.auth_service.controller;
 
 import com.asheef.auth_service.config.JwtUtil;
+import com.asheef.auth_service.constant.Constant;
 import com.asheef.auth_service.model.AuthRequest;
 import com.asheef.auth_service.model.AuthResponse;
 import com.asheef.auth_service.service.CustomUserDetailsService;
@@ -36,7 +37,7 @@ public class AuthController {
                     new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
             );
         } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Constant.INVALID_CREDENTIALS);
         }
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
@@ -50,7 +51,7 @@ public class AuthController {
         try {
             return userService.addUser(userDto);  // Handle registration logic through UserService
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred during registration");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Constant.ERROR_OCCURRED_DURING_REGISTRATION);
         }
     }
 
@@ -63,10 +64,10 @@ public class AuthController {
                 String newToken = jwtUtil.generateToken(email);
                 return ResponseEntity.ok(new AuthResponse(newToken));
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthResponse("Invalid or expired refresh token"));
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthResponse(Constant.INVALID_TOKEN));
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new AuthResponse("Error refreshing token"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new AuthResponse(Constant.ERROR_REFRESHING_TOKEN));
         }
     }
 
@@ -74,6 +75,6 @@ public class AuthController {
     @PostMapping("/logout")
     public ResponseEntity<String> logout() {
         // Token invalidation logic or blacklist handling can be added here
-        return ResponseEntity.ok("Successfully logged out");
+        return ResponseEntity.ok(Constant.LOGOUT_SUCCESS);
     }
 }

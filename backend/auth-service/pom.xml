@@ -2,12 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.asheef</groupId>
 	<artifactId>auth-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -16,34 +18,36 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<spring-cloud.version>2021.0.9</spring-cloud.version>
+		<spring-cloud.version>2021.0.2</spring-cloud.version>
 	</properties>
 
 	<dependencies>
-		<!-- Spring Boot Web & Security Dependencies -->
+		<!-- Spring Boot WebFlux for reactive programming (required for Spring Cloud Gateway) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 
+		<!-- Spring Boot Security Dependency -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
-		<!-- MongoDB Dependency (for persisting user information) -->
+		<!-- MongoDB Dependency (for persisting user information, if needed) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
 
-		<!-- JWT Dependency -->
+		<!-- JWT Dependency for creating and validating JWT tokens -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
 			<version>0.11.5</version>
 		</dependency>
 
+		<!-- Lombok for simplifying boilerplate code -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -57,7 +61,7 @@
 			<version>1.0.10.RELEASE</version>
 		</dependency>
 
-		<!-- Spring Cloud Gateway Dependency for API Gateway Integration (if needed) -->
+		<!-- Spring Cloud Gateway for API Gateway Integration -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-gateway</artifactId>
@@ -75,6 +79,12 @@
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 
+		<!-- Spring Cloud Bootstrap Dependency for environment configuration (if needed) -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bootstrap</artifactId>
+		</dependency>
+
 		<!-- Test Dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -87,12 +97,16 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- Common Models Dependency -->
 		<dependency>
 			<groupId>com.asheef</groupId>
 			<artifactId>common-models</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
+
+		<!-- User Service Dependency -->
 		<dependency>
 			<groupId>com.asheef</groupId>
 			<artifactId>user-service</artifactId>

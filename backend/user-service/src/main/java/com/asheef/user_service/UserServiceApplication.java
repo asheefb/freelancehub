@@ -2,8 +2,11 @@ package com.asheef.user_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication
+@SpringBootApplication(
+		scanBasePackages = {"com.asheef.user_service", "com.asheef.common_models"}
+)
 public class UserServiceApplication {
 
 	public static void main(String[] args) {

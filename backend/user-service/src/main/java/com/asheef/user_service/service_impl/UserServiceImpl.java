@@ -25,7 +25,11 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public ResponseEntity<ResponseDto> addUser(UserDto userDto) {

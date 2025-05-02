@@ -40,7 +40,9 @@ public class UserServiceImpl implements UserService {
             // Create a new User entity from the UserDto
             User user = new User();
             user.setEmail(userDto.getEmail());
-            user.setPassword(userDto.getPassword());
+            String encryptedPassword = passwordEncoder.encode(userDto.getPassword());
+            user.setPassword(encryptedPassword);
+
             user.setRole(User.Role.valueOf(userDto.getRole().toUpperCase()));
             user.setName(userDto.getName());
             user.setBio(userDto.getBio());

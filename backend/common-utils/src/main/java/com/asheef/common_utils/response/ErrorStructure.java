@@ -5,21 +5,31 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ErrorStructure {
 
-    private String value;
+    private Integer value;
 
     private String error;
 
     private String param;
 
+    private List<ErrorStructure> errors;
+
     public ErrorStructure(int value, String message, String userFound) {
-        this.value = String.valueOf(value);
+        this.value = value;
         this.error = message;
         this.param = userFound;
+    }
+
+    public ErrorStructure(Integer value, List<ErrorStructure> errorList, String  ex) {
+        this.value = value;
+        this.errors = errorList;
+        this.error = ex;
     }
 }

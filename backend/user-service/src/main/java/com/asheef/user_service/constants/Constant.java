@@ -12,4 +12,6 @@ public class Constant {
     public static final String ERROR = "ERROR";
     public static final String DATA_NOT_FOUND = "Data not found";
     public static final String EMAIL_SHOULD_NOT_BE_EMPTY = "Email should not be empty";
+    public static final String FAILED = "Failed";
+
 }

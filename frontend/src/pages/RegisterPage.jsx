@@ -8,6 +8,7 @@ const RegisterPage = () => {
         password: '',
         bio: '',
         profilePictureUrl: '',
+        role: '',
         contactInfo:''
       });
 
@@ -58,6 +59,14 @@ const RegisterPage = () => {
           <label>Password:</label>
           <input type="password" name="password" value={formData.password} onChange={handleChange} required />
         </div>
+        <div></div>
+          <label>Role:</label>
+          <select name="role" value={formData.role} onChange={handleChange} required>
+            <option value="">Select Role</option>
+            <option value="ADMIN">ADMIN</option>
+            <option value="CLIENT">CLIENT</option>
+            <option value="FREELANCER">FREELANCER</option>
+          </select>
         <button type="submit">Register</button>
       </form>
       {error && <p className="error">{error}</p>}

@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication(
-		scanBasePackages = {"com.asheef.user_service", "com.asheef.common_models"}
+		scanBasePackages = {"com.asheef.user_service", "com.asheef.common_models","com.asheef.common_utils"}
 )
 public class UserServiceApplication {
 

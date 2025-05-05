@@ -18,10 +18,17 @@ public class CrossGlobalConfiguration {
             if (CorsUtils.isCorsRequest(request)) {
                 ServerHttpResponse response = exchange.getResponse();
                 HttpHeaders headers = response.getHeaders();
-                headers.add("Access-Control-Allow-Origin", "http://localhost:5173");
-                headers.add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-                headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization");
-                headers.add("Access-Control-Allow-Credentials", "true");
+
+                headers.set("Access-Control-Allow-Origin", "http://localhost:5173");
+                headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+                headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+                headers.set("Access-Control-Allow-Credentials", "true");
+
+                // ✅ Correct method call here
+                if ("OPTIONS".equals(request.getMethod().name())) {
+                    response.setStatusCode(org.springframework.http.HttpStatus.OK);
+                    return response.setComplete();
+                }
             }
             return chain.filter(exchange);
         };

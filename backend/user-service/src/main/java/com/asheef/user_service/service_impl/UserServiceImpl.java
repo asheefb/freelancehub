@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
             }
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(new ResponseDto(Boolean.FALSE, HttpStatus.UNAUTHORIZED.value(),null, "Invalid email or password"));
+                .body(new ResponseDto(Boolean.FALSE, HttpStatus.UNAUTHORIZED.value(), "Invalid email or password"));
     }
 
 

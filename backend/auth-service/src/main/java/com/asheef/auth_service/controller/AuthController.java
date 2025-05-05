@@ -5,8 +5,6 @@ import com.asheef.auth_service.constant.Constant;
 import com.asheef.auth_service.model.AuthRequest;
 import com.asheef.auth_service.model.AuthResponse;
 import com.asheef.auth_service.service.CustomUserDetailsService;
-import com.asheef.user_service.dto.UserDto;
-import com.asheef.user_service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.security.authentication.*;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:5173/")
 public class AuthController {
 
     @Autowired
@@ -27,8 +24,8 @@ public class AuthController {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
-    @Autowired
-    private UserService userService;
+//    @Autowired
+//    private UserService userService;
 
     // Login endpoint
     @PostMapping("/login")
@@ -47,14 +44,14 @@ public class AuthController {
     }
 
     // Registration endpoint
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody UserDto userDto) {
-        try {
-            return userService.addUser(userDto);  // Handle registration logic through UserService
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Constant.ERROR_OCCURRED_DURING_REGISTRATION);
-        }
-    }
+//    @PostMapping("/register")
+//    public ResponseEntity<ResponseDto> register(@RequestBody UserDto userDto) {
+////        try {
+//            return userService.addUser(userDto);  // Handle registration logic through UserService
+////        } catch (Exception e) {
+////            return new ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Constant.ERROR_OCCURRED_DURING_REGISTRATION);
+////        }
+//    }
 
     // Token refresh endpoint
     @PostMapping("/refresh-token")

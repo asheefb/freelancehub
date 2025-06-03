@@ -60,6 +60,11 @@ public class GlobalException {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * This if for handle the RequestParam / PathVariable Validations
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<?> handleConstraintViolation(ConstraintViolationException ex) {
         var errors = new ArrayList<ErrorStructure>();

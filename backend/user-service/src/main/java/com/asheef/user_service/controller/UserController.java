@@ -3,6 +3,8 @@ package com.asheef.user_service.controller;
 import com.asheef.common_utils.response.ResponseDto;
 import com.asheef.user_service.dto.UpdateUserDto;
 import com.asheef.user_service.dto.UserDto;
+import com.asheef.user_service.dto.ValidateUser;
+import com.asheef.user_service.dto.ValidateUserDto;
 import com.asheef.user_service.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +24,15 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ResponseDto> register(@RequestBody UserDto userDto) {
+    public ResponseEntity<ResponseDto> register(@Valid @RequestBody UserDto userDto) {
         return userService.addUser(userDto);
     }
 
     // Endpoint for user registration is handled by AuthController, so we won't repeat here
 
     @PostMapping("/validate")
-    public ResponseEntity<ResponseDto> validateUser(@RequestParam String email, @RequestParam String password) {
-        return userService.validateUser(email, password);
+    public ResponseEntity<ResponseDto> validateUser(@ModelAttribute ValidateUserDto validateUserDto) {
+        return userService.validateUser(validateUserDto);
     }
 
     @PutMapping("/update")

@@ -6,6 +6,7 @@ import com.asheef.common_utils.response.ResponseDto;
 import com.asheef.user_service.constants.Constant;
 import com.asheef.user_service.dto.UpdateUserDto;
 import com.asheef.user_service.dto.UserDto;
+import com.asheef.user_service.dto.ValidateUserDto;
 import com.asheef.user_service.exception.UserNotFoundException;
 import com.asheef.user_service.service.UserService;
 import org.apache.commons.lang.StringUtils;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -66,12 +68,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> validateUser(String email, String password) {
-        Optional<User> optionalUser = userRepository.findByEmail(email);
+    public ResponseEntity<ResponseDto> validateUser(ValidateUserDto dto) {
+        Optional<User> optionalUser = userRepository.findByEmail(dto.getEmail());
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            if (passwordEncoder.matches(password, user.getPassword())) {
-                return ResponseEntity.ok(new ResponseDto(Boolean.TRUE,user,HttpStatus.OK.value(),"User validated"));
+            if (passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
+                return ResponseEntity.ok(new ResponseDto(Boolean.TRUE, user, HttpStatus.OK.value(), "User validated"));
             }
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
@@ -92,7 +94,7 @@ public class UserServiceImpl implements UserService {
                 return new ResponseEntity<>(response, httpStatus);
             }
             User user = userRepository.findByEmail(email)
-                    .orElseThrow(() -> new UserNotFoundException(Constant.USER_NOT_FOUND_WITH_EMAIL+email));
+                    .orElseThrow(() -> new UserNotFoundException(Constant.USER_NOT_FOUND_WITH_EMAIL + email));
 
             response = new ResponseDto(Boolean.TRUE, Constant.USER_FOUND, HttpStatus.OK.value(), Constant.SUCCESS);
             httpStatus = HttpStatus.OK;
@@ -155,11 +157,11 @@ public class UserServiceImpl implements UserService {
         try {
             List<User> users = userRepository.findAll();
 
-            if (users.isEmpty()){
+            if (users.isEmpty()) {
                 response = new ResponseDto(Boolean.FALSE, Constant.DATA_NOT_FOUND, HttpStatus.NOT_FOUND.value(), Constant.ERROR);
                 httpStatus = HttpStatus.NOT_FOUND;
             } else {
-                response = new ResponseDto(Boolean.TRUE,users , HttpStatus.OK.value(), Constant.SUCCESS);
+                response = new ResponseDto(Boolean.TRUE, users, HttpStatus.OK.value(), Constant.SUCCESS);
                 httpStatus = HttpStatus.OK;
             }
 

@@ -32,4 +32,7 @@ public class ErrorStructure {
         this.errors = errorList;
         this.error = ex;
     }
+
+    public ErrorStructure(String rejectedValue, String defaultMessage, String field) {
+    }
 }

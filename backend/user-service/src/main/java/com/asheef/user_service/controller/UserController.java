@@ -3,7 +3,6 @@ package com.asheef.user_service.controller;
 import com.asheef.common_utils.response.ResponseDto;
 import com.asheef.user_service.dto.UpdateUserDto;
 import com.asheef.user_service.dto.UserDto;
-import com.asheef.user_service.dto.ValidateUser;
 import com.asheef.user_service.dto.ValidateUserDto;
 import com.asheef.user_service.service.UserService;
 import jakarta.validation.Valid;

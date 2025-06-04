@@ -27,8 +27,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private
+//    @Autowired
+//    private
 
     @Autowired
     private final PasswordEncoder passwordEncoder;
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
             user.setName(userDto.getName());
             user.setBio(userDto.getBio());
             user.setProfilePictureUrl(userDto.getProfilePictureUrl());
-            user.setContactInfo(userDto.getContactInfo());
+//            user.setContactInfo(userDto.getContactInfo());
 
             userRepository.save(user);
 
@@ -133,8 +133,8 @@ public class UserServiceImpl implements UserService {
             if (!updateUserDto.getProfilePictureUrl().equals(user.getProfilePictureUrl()))
                 user.setProfilePictureUrl(updateUserDto.getProfilePictureUrl());
 
-            if (!updateUserDto.getContactInfo().equals(user.getContactInfo()))
-                user.setContactInfo(updateUserDto.getContactInfo());
+//            if (!updateUserDto.getContactInfo().equals(user.getContactInfo()))
+//                user.setContactInfo(updateUserDto.getContactInfo());
 
             userRepository.save(user);
 

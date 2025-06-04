@@ -44,12 +44,12 @@ public class UserController {
         return userService.findUserByEmail(email);
     }
 
-    @GetMapping("/get-all-users")
+    @GetMapping("/list")
     public ResponseEntity<ResponseDto> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/get-user-by-id")
+    @GetMapping("/details")
     public ResponseEntity<ResponseDto> getUserDetailsById(@RequestParam String id) {
         return userService.getUserDetailsById(id);
     }

@@ -6,6 +6,7 @@ import com.asheef.common_utils.response.ResponseDto;
 import com.asheef.user_service.constants.Constant;
 import com.asheef.user_service.dto.UpdateUserDto;
 import com.asheef.user_service.dto.UserDto;
+import com.asheef.user_service.dto.UserListDto;
 import com.asheef.user_service.dto.ValidateUserDto;
 import com.asheef.user_service.exception.UserNotFoundException;
 import com.asheef.user_service.service.UserService;
@@ -25,6 +26,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private
 
     @Autowired
     private final PasswordEncoder passwordEncoder;
@@ -149,7 +153,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> getAllUsers() {
+    public ResponseEntity<ResponseDto> getAllUsers(UserListDto dto) {
 
         ResponseDto response;
         HttpStatus httpStatus;

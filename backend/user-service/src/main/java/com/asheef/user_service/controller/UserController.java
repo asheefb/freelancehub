@@ -3,6 +3,7 @@ package com.asheef.user_service.controller;
 import com.asheef.common_utils.response.ResponseDto;
 import com.asheef.user_service.dto.UpdateUserDto;
 import com.asheef.user_service.dto.UserDto;
+import com.asheef.user_service.dto.UserListDto;
 import com.asheef.user_service.dto.ValidateUserDto;
 import com.asheef.user_service.service.UserService;
 import jakarta.validation.Valid;
@@ -45,8 +46,8 @@ public class UserController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<ResponseDto> getAllUsers() {
-        return userService.getAllUsers();
+    public ResponseEntity<ResponseDto> getAllUsers(@ModelAttribute UserListDto dto) {
+        return userService.getAllUsers(dto);
     }
 
     @GetMapping("/details")

@@ -40,6 +40,10 @@
 			<version>8.0.33</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
 
 		<!-- Lombok for automatic generation of boilerplate code -->
 		<dependency>

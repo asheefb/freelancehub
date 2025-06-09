@@ -8,6 +8,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Getter
@@ -46,8 +47,18 @@ public class User {
     @Column(name = "profile_picture_url")
     private String profilePictureUrl;
 
-    @Column(name = "contact_info")
-    private String contactInfo;
+    private String line1;
+
+    private String line2;
+
+    @Column(name = "pin_code")
+    private Integer pinCode;
+
+    private String city;
+
+    private String state;
+
+    private String country;
 
     private boolean is_active = true;
 
@@ -56,14 +67,10 @@ public class User {
     private String verificationToken;
 
     @CreationTimestamp
-    private LocalDateTime createdAt;
+    private Timestamp createdAt;
 
     @UpdateTimestamp
-    private LocalDateTime updatedAt;
-
-//    public <T> User(@NotBlank(message = "Email is required") @Email(message = "Please provide a valid email") String email, @NotBlank(message = "Password is required") @Size(min = 8, message = "Password must be at least 8 characters long") String password, List<T> ts) {
-//
-//    }
+    private Timestamp updatedAt;
 
     public enum Role {
         FREELANCER,

@@ -1,11 +1,13 @@
 package com.asheef.user_service.service_impl;
 
 import com.asheef.common_models.models.User;
+import com.asheef.common_models.mongo_models.UsersModel;
 import com.asheef.common_models.repository.UserRepository;
 import com.asheef.common_utils.response.ResponseDto;
 import com.asheef.user_service.constants.Constant;
 import com.asheef.user_service.dto.UpdateUserDto;
 import com.asheef.user_service.dto.UserDto;
+import com.asheef.user_service.dto.UserListDto;
 import com.asheef.user_service.dto.ValidateUserDto;
 import com.asheef.user_service.exception.UserNotFoundException;
 import com.asheef.user_service.service.UserService;
@@ -26,6 +28,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+//    @Autowired
+//    private
+
     @Autowired
     private final PasswordEncoder passwordEncoder;
 
@@ -41,15 +46,24 @@ public class UserServiceImpl implements UserService {
         try {
             // Create a new User entity from the UserDto
             User user = new User();
+            UsersModel usersModel = new UsersModel();
+
+            user.setName(userDto.getName());
+            usersModel.setName(userDto.getName());
+
             user.setEmail(userDto.getEmail());
+            usersModel.setEmail(userDto.getEmail());
+
+            user.setRole(User.Role.valueOf(userDto.getRole().toUpperCase()));
+            usersModel.setRole(User.Role.valueOf(userDto.getRole().toUpperCase()));
+
             String encryptedPassword = passwordEncoder.encode(userDto.getPassword());
             user.setPassword(encryptedPassword);
 
-            user.setRole(User.Role.valueOf(userDto.getRole().toUpperCase()));
-            user.setName(userDto.getName());
-            user.setBio(userDto.getBio());
+            usersModel.setBio(userDto.getBio());
+
             user.setProfilePictureUrl(userDto.getProfilePictureUrl());
-            user.setContactInfo(userDto.getContactInfo());
+//            user.setContactInfo(userDto.getContactInfo());
 
             userRepository.save(user);
 
@@ -129,8 +143,8 @@ public class UserServiceImpl implements UserService {
             if (!updateUserDto.getProfilePictureUrl().equals(user.getProfilePictureUrl()))
                 user.setProfilePictureUrl(updateUserDto.getProfilePictureUrl());
 
-            if (!updateUserDto.getContactInfo().equals(user.getContactInfo()))
-                user.setContactInfo(updateUserDto.getContactInfo());
+//            if (!updateUserDto.getContactInfo().equals(user.getContactInfo()))
+//                user.setContactInfo(updateUserDto.getContactInfo());
 
             userRepository.save(user);
 
@@ -149,7 +163,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> getAllUsers() {
+    public ResponseEntity<ResponseDto> getAllUsers(UserListDto dto) {
 
         ResponseDto response;
         HttpStatus httpStatus;

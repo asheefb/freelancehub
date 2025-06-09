@@ -1,6 +1,7 @@
 package com.asheef.user_service.service_impl;
 
 import com.asheef.common_models.models.User;
+import com.asheef.common_models.mongo_models.UsersModel;
 import com.asheef.common_models.repository.UserRepository;
 import com.asheef.common_utils.response.ResponseDto;
 import com.asheef.user_service.constants.Constant;
@@ -45,13 +46,22 @@ public class UserServiceImpl implements UserService {
         try {
             // Create a new User entity from the UserDto
             User user = new User();
+            UsersModel usersModel = new UsersModel();
+
+            user.setName(userDto.getName());
+            usersModel.setName(userDto.getName());
+
             user.setEmail(userDto.getEmail());
+            usersModel.setEmail(userDto.getEmail());
+
+            user.setRole(User.Role.valueOf(userDto.getRole().toUpperCase()));
+            usersModel.setRole(User.Role.valueOf(userDto.getRole().toUpperCase()));
+
             String encryptedPassword = passwordEncoder.encode(userDto.getPassword());
             user.setPassword(encryptedPassword);
 
-            user.setRole(User.Role.valueOf(userDto.getRole().toUpperCase()));
-            user.setName(userDto.getName());
-            user.setBio(userDto.getBio());
+            usersModel.setBio(userDto.getBio());
+
             user.setProfilePictureUrl(userDto.getProfilePictureUrl());
 //            user.setContactInfo(userDto.getContactInfo());
 

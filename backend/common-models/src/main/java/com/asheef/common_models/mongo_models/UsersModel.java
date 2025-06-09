@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Map;
 
@@ -24,6 +23,8 @@ public class UsersModel {
 
     @Field(targetType = FieldType.OBJECT_ID)
     private String id;
+
+    private Integer userId;
 
     private String email;
 
